@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="EmployeeCreateDlg" widgetVar="EmployeeCreateDialog" modal="true" resizable="false" appendTo="@(body)" header="#{bundle.CreateEmployeeTitle}">
+            <h:form id="EmployeeCreateForm">
+                <h:panelGroup id="display">
+                    <p:panelGrid columns="2" rendered="#{employeeController.selected != null}">
+                        <p:outputLabel value="ID" for="id" />
+                        <p:inputText id="id" value="#{employeeController.selected.id}" title="#{bundle.CreateEmployeeTitle_id}" readonly="true" style="background-color: gainsboro"/>
+                        <p:outputLabel value="Name" for="name" />
+                        <p:inputText id="name" value="#{employeeController.selected.name}" title="Name" />
+                        <p:outputLabel value="Dependents" for="dependents" />
+                        <p:inputText id="dependents" value="#{employeeController.selected.dependents}" title="#{bundle.CreateEmployeeTitle_dependents}" />
+                        <p:outputLabel value="Gross wage" for="grossWage" />
+                        <p:inputText id="grossWage" value="#{employeeController.selected.grossWage}" title="#{bundle.CreateEmployeeTitle_grossWage}" />
+                    </p:panelGrid>
+                    <p:commandButton actionListener="#{employeeController.create}" value="#{bundle.Save}" update="display,:EmployeeListForm:datalist,:growl" oncomplete="handleSubmit(args,'EmployeeCreateDialog');"/>
+                </h:panelGroup>
+            </h:form>
+        </p:dialog>
+
+    </ui:composition>
+</html>

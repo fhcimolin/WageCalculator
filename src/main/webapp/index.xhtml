@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition template="/template.xhtml">
+
+        <ui:define name="body">
+            <h:form id="EmployeeListForm">
+                <p:panel header="Employees">
+                    <p:dataTable id="datalist" value="#{employeeController.items}" var="item"
+                                 selectionMode="single" selection="#{employeeController.selected}"
+                                 rowKey="#{item.id}"
+                                 >
+
+                        <p:ajax event="rowSelect"   update="createButton viewButton editButton deleteButton"/>
+                        <p:ajax event="rowUnselect" update="createButton viewButton editButton deleteButton"/>
+
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="ID"/>
+                            </f:facet>
+                            <h:outputText value="#{item.id}"/>
+                        </p:column>
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="Name"/>
+                            </f:facet>
+                            <h:outputText value="#{item.name}"/>
+                        </p:column>
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="Dependents"/>
+                            </f:facet>
+                            <h:outputText value="#{item.dependents}"/>
+                        </p:column>
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="Gross wage (R$)"/>
+                            </f:facet>
+                            <h:outputText value="#{employeeController.getMoneyString(item.grossWage)}"/>
+                        </p:column>
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="Net wage (R$)"/>
+                            </f:facet>
+                            <h:outputText value="#{employeeController.getMoneyString(employeeController.getNetWage(item.grossWage, item.dependents))}"/>
+                        </p:column>
+                        <f:facet name="footer">
+                            <p:commandButton id="createButton" icon="ui-icon-plus"   value="Create" actionListener="#{employeeController.prepareCreate}" update=":EmployeeCreateForm" oncomplete="PF('EmployeeCreateDialog').show()"/>
+                            <p:commandButton id="viewButton"   icon="ui-icon-search" value="View deductions" update=":EmployeeViewForm" oncomplete="PF('EmployeeViewDialog').show()" disabled="#{empty employeeController.selected}"/>
+                            <p:commandButton id="editButton"   icon="ui-icon-pencil" value="Edit" update=":EmployeeEditForm" oncomplete="PF('EmployeeEditDialog').show()" disabled="#{empty employeeController.selected}"/>
+                            <p:commandButton id="deleteButton" icon="ui-icon-trash"  value="Delete" actionListener="#{employeeController.destroy}" update=":growl,datalist" disabled="#{empty employeeController.selected}"/>
+                        </f:facet>
+                    </p:dataTable>
+                </p:panel>
+            </h:form>
+
+            <ui:include src="employee/Create.xhtml"/>
+            <ui:include src="employee/Edit.xhtml"/>
+            <ui:include src="employee/View.xhtml"/>
+        </ui:define>
+    </ui:composition>
+
+</html>
