@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="EmployeeViewDlg" widgetVar="EmployeeViewDialog" modal="true" resizable="false" appendTo="@(body)" header="#{bundle.ViewEmployeeTitle}">
+            <h:form id="EmployeeViewForm">
+                <h:panelGroup id="display">
+                    <p>Employee data</p>
+                    <p:panelGrid columns="2" rendered="#{employeeController.selected != null}">
+                        <h:outputText value="ID"/>
+                        <h:outputText value="#{employeeController.selected.id}" title="ID"/>
+                        <h:outputText value="Name"/>
+                        <h:outputText value="#{employeeController.selected.name}" title="Name"/>
+                        <h:outputText value="Dependents"/>
+                        <h:outputText value="#{employeeController.selected.dependents}" title="Dependents"/>
+                        <h:outputText value="Gross wage (R$)"/>
+                        <h:outputText value="#{employeeController.getMoneyString(employeeController.selected.grossWage)}" title="Gross wage"/>
+                    </p:panelGrid>
+                    <hr></hr>
+                    <p>INSS deduction</p>
+                    <p:panelGrid columns="2" rendered="#{employeeController.selected != null}">
+                        <h:outputText value="INSS aliquot (%)"/>
+                        <h:outputText value="#{employeeController.getINSSAliquot(employeeController.selected.grossWage).toString()}" title="INSS Aliquot"/>
+                        <h:outputText value="INSS deduction (R$)"/>
+                        <h:outputText value="#{employeeController.getMoneyString(employeeController.getINSSDeduction(employeeController.selected.grossWage))}" title="INSS Deduction"/>
+                    </p:panelGrid>
+                    <hr></hr>
+                    <p>IRRF deduction</p>
+                    <p:panelGrid columns="2" rendered="#{employeeController.selected != null}">
+                        <h:outputText value="IRRF aliquot (%)"/>
+                        <h:outputText value="#{employeeController.getIRRFAliquot(employeeController.selected.grossWage).toString()}" title="IRRF Aliquot"/>
+                        <h:outputText value="IRRF deduction (R$)"/>
+                        <h:outputText value="#{employeeController.getMoneyString(employeeController.getIRRFDeduction(employeeController.selected.grossWage))}" title="IRRF Deduction"/>
+                    </p:panelGrid>
+                    <hr></hr>
+                    <p:panelGrid columns="2" rendered="#{employeeController.selected != null}">
+                        <h:outputText value="Net wage (R$)"/>
+                        <h:outputText value="#{employeeController.getMoneyString(employeeController.getNetWage(employeeController.selected.grossWage,employeeController.selected.dependents))}" title="Net wage"/>
+                    </p:panelGrid>
+                    <hr></hr>
+                    <br></br>
+                    <br></br>    
+                </h:panelGroup>
+            </h:form>
+        </p:dialog>
+
+    </ui:composition>
+</html>

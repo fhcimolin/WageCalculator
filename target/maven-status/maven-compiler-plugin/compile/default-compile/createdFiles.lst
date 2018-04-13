@@ -1,0 +1,13 @@
+com\cimolin\wagecalculator\controller\EmployeeController$EmployeeControllerConverter.class
+com\cimolin\wagecalculator\entity\Employee_.class
+com\cimolin\wagecalculator\controller\exceptions\IllegalOrphanException.class
+com\cimolin\wagecalculator\controller\util\JsfUtil$PersistAction.class
+com\cimolin\wagecalculator\controller\AbstractFacade.class
+com\cimolin\wagecalculator\controller\exceptions\RollbackFailureException.class
+com\cimolin\wagecalculator\controller\util\JsfUtil.class
+com\cimolin\wagecalculator\entity\Employee.class
+com\cimolin\wagecalculator\controller\EmployeeFacade.class
+com\cimolin\wagecalculator\controller\EmployeeController.class
+com\cimolin\wagecalculator\controller\exceptions\NonexistentEntityException.class
+com\cimolin\wagecalculator\controller\EmployeeJpaController.class
+com\cimolin\wagecalculator\controller\exceptions\PreexistingEntityException.class
